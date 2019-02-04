@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+html{
+    background-image: linear-gradient(to right, rgba(0, 4, 255, 0.2), rgba(153, 0, 255, 0.2));
+}
+#game-container{
+    text-align: center;
+    margin-top:10%;
+}
+#player-input{
+    margin-bottom:10px;
+}
+#player{
+    position:relative;
+    margin:auto;
+    border-style:solid;
+    border-radius:10px;
+    border-color: blue;
+    width:10%;
+    margin-bottom:10px;
+    padding:1%;
+    background-color:rgba(255, 255, 255, 0.4);
+}
+#computer{
+    position:relative;
+    margin:auto;
+    border-style:solid;
+    border-radius:10px;
+    border-color:red;
+    width:10%;
+    margin-bottom:10px;
+    padding:1%;
+    background-color:rgba(255, 255, 255, 0.4);
+}
+#game-result{
+    position:relative;
+    margin:auto;
+    border-style:solid;
+    border-radius:10px;
+    width:10%;
+    margin-bottom:10px;
+    padding:1%;
+    background-color:rgba(255, 255, 255, 0.4);
+}
+</style>
+</head>
+<body>
+<div id="game-container">
+    <div id="player-instruction"><p>Type Rock, Paper, or Scissors (not case sensative):</p></div>
+    <div id="player-input">
+            <input id="input" type=text value=>
+            <button style="font-size:14px;" type="submit" onclick="startGame()">Play</button>
+    </div>
+    <div id ="player">
+    </div>
+    <div id ="computer">
+    </div>
+    <div id ="game-result">
+    </div>
+</div>
+<script>
+$("#computer").hide();
+$("#game-result").hide();
+function startGame(){
+    let computerChoice;
+    let randomNumber = Math.random() * 3 << 0;
+    function computerPlay(){
+        if(randomNumber == 0)
+            computerChoice = "rock";
+        if(randomNumber == 1)
+            computerChoice = "paper";
+        if(randomNumber == 2)
+            computerChoice = "scissors";
+
+        return computerChoice;
+    }
+    function playRound(playerSelection, computerSelection) {
+	    if (computerSelection == "rock" && playerSelection == "scissors" 
+        || computerSelection == "paper" && playerSelection == "rock" || computerSelection == "scissors" && playerSelection == "paper" ) 
+            return "Player loses!";
+        if (playerSelection == "rock" && computerSelection == "scissors" || playerSelection == "paper" && computerSelection == "rock" 
+        || playerSelection == "scissors" && computerSelection == "paper")
+            return "Player wins!";
+        if(computerSelection == playerSelection)
+            return "Draw...";
+    }
+    const computerSelection = computerPlay();
+    let playerSelection = document.getElementById("input").value.toLowerCase();
+    document.getElementById("player").innerHTML = "Player chooses: " + (playerSelection);
+    document.getElementById("computer").innerHTML = "Computer chooses: " + (computerSelection);
+    document.getElementById("game-result").innerHTML = "Result: " + (playRound(playerSelection, computerSelection));
+
+ 
+    $("#computer").hide();
+    $("#game-result").hide();
+    $("#computer").fadeIn(1000);
+    $("#game-result").fadeIn(1000);
+}
+</script>
+</body>
+</html>
